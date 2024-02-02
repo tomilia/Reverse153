@@ -73,7 +73,7 @@ class TcpReverseProxy
         if(!int.TryParse(Console.ReadLine(), out portDest)) portDest = 1433;
         
         Console.WriteLine("Incoming Port?");
-
+        int incomingPort;
         if(!int.TryParse(Console.ReadLine(), out incomingPort)) incomingPort = 5000;
         TcpReverseProxy tcpReverseProxy = new TcpReverseProxy(IPAddress.Any,incomingPort,IPAddress.Parse(ipDest),portDest);
         await tcpReverseProxy.StartAsync();
