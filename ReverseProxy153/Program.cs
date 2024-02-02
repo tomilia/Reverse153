@@ -64,15 +64,18 @@ class TcpReverseProxy
     }
     static async Task Main(string[] args)
     {
-        Console.WriteLine("Destination IP?");
+        Console.WriteLine("Host IP?");
         string ipDest = Console.ReadLine();
         if (string.IsNullOrEmpty(ipDest)) ipDest = "172.16.0.153";
 
-        Console.WriteLine("Destination Port?");
+        Console.WriteLine("Source Port?");
         int portDest;
         if(!int.TryParse(Console.ReadLine(), out portDest)) portDest = 1433;
+        
+        Console.WriteLine("Incoming Port?");
 
-        TcpReverseProxy tcpReverseProxy = new TcpReverseProxy(IPAddress.Any,5000,IPAddress.Parse(ipDest),portDest);
+        if(!int.TryParse(Console.ReadLine(), out incomingPort)) incomingPort = 5000;
+        TcpReverseProxy tcpReverseProxy = new TcpReverseProxy(IPAddress.Any,incomingPort,IPAddress.Parse(ipDest),portDest);
         await tcpReverseProxy.StartAsync();
     }
 }
